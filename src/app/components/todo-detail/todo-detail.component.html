@@ -3,4 +3,6 @@
   <p><strong>ID:</strong> {{ todo.id }}</p>
   <p><strong>User ID:</strong> {{ todo.userId }}</p>
   <p><strong>Completed:</strong> {{ todo.completed ? 'Yes' : 'No' }}</p>
+
+  <button (click)="deleteTodo()" class="btn btn-danger">Delete</button>
 </div>

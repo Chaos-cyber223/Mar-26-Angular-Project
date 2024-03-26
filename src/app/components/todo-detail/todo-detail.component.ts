@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TodoService } from '../../services/todo.service';
 import { Todo } from '../../models/todo.model';
 
@@ -13,6 +13,7 @@ export class TodoDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private todoService: TodoService
   ) { }
 
@@ -28,6 +29,16 @@ export class TodoDetailComponent implements OnInit {
       });
     } else {
       console.error('No ID provided');
+    }
+  }
+  deleteTodo() {
+    if (this.todo && this.todo.id) {
+      this.todoService.deleteTodoById(this.todo.id).subscribe({
+        next: () => {
+          this.router.navigate(['/todos']);
+        },
+        error: (e) => console.error(e),
+      });
     }
   }
 }
