@@ -1,9 +1,11 @@
 <div>
   <h4>Todo List</h4>
+  <input type="text" [(ngModel)]="searchId" placeholder="Search by ID" />
+  <button (click)="searchTodoById()">Search</button>
   <ul>
     @for(todo of todos; track todo.id){
     <li>
-      <a [routerLink]="['/todo', todo.id]">{{ todo.title }}</a>
+      <a [routerLink]="['/todo', todo.id!]">{{ todo.title | summary : 10 }}</a>
     </li>
     }
   </ul>

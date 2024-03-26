@@ -9,7 +9,7 @@ import { Todo } from '../../models/todo.model';
   styleUrls: ['./todo-detail.component.css']
 })
 export class TodoDetailComponent implements OnInit {
-  todo: Todo | undefined;
+  todo: Todo = new Todo(0, '', 0, false);
 
   constructor(
     private route: ActivatedRoute,
@@ -20,10 +20,14 @@ export class TodoDetailComponent implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       const id = +idParam;
-      this.todoService.getTodoById(id).subscribe(todo => this.todo = todo);
+      this.todoService.getTodoById(id).subscribe({
+        next: (data) => {
+          this.todo = data;
+        },
+        error: (e) => console.error(e),
+      });
     } else {
       console.error('No ID provided');
     }
   }
-  
 }
